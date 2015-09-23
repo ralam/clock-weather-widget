@@ -1,14 +1,40 @@
-
+.
 <!DOCTYPE html>
 <html>
   <head>
     <title>Hello React</title>
-    <!-- Not present in the tutorial. Just for basic styling. -->
-    <link rel="stylesheet" href="css/base.css" />
     <script src="https://fb.me/react-0.13.3.js"></script>
     <script src="https://fb.me/JSXTransformer-0.13.3.js"></script>
   </head>
   <body>
     <div id="content"></div>
+    <script type="text/jsx">
+      var Clock = React.createClass({
+        render: function () {
+          var date = new Date();
+          var hours = date.getHours();
+          var minutes = date.getMinutes();
+          var seconds = date.getSeconds();
+          minutes = checkTime(minutes);
+          seconds = checkTime(seconds);
+
+          function checkTime(i) {
+            if (i < 10) {i = "0" + i};
+            return i
+          };
+
+          return (
+            <div className="time">
+              {hours + ":" + minutes + ":" + seconds}
+            </div>
+          );
+        }
+      });
+
+      React.render(
+        <Clock/>,
+        document.getElementById('content')
+      );
+    </script>
   </body>
 </html>

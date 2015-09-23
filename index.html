@@ -11,11 +11,26 @@
     <script type="text/jsx">
       var Clock = React.createClass({
         getInitialState: function(){
-          return {time: ""};
+          return {
+            time: "",
+            loc: ""
+          };
         },
 
         componentDidMount: function() {
+          this.getLocation();
           setInterval(this.updateTime, 500);
+        },
+
+        getLocation: function () {
+          var location = ""
+          navigator.geolocation.getCurrentPosition(function(position) {
+            console.log(position.coor);
+            location = position.coords.latitude + " " + position.coords.longitude
+            this.setState({loc: location})
+            console.log(this.state);
+          }.bind(this));
+
         },
 
         updateTime: function () {
@@ -45,7 +60,7 @@
       });
 
       React.render(
-        <Clock time={""}/>,
+        <Clock loc={""} time={""}/>,
         document.getElementById('content')
       );
     </script>

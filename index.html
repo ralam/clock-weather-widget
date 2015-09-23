@@ -11,19 +11,17 @@
     <script type="text/jsx">
       var Clock = React.createClass({
         componentDidMount: function() {
-          this.setTime();
           setInterval(this.updateTime(), 500);
         },
-
-        setTime: function () {
-          this.date = new Date();
+        getInitialState: function(){
+          return {time: ""};
         },
 
         updateTime: function () {
-          this.date || this.setTime();
-          var hours = this.date.getHours();
-          var minutes = this.date.getMinutes();
-          var seconds = this.date.getSeconds();
+
+          var hours = this.props.date.getHours();
+          var minutes = this.props.date.getMinutes();
+          var seconds = this.props.date.getSeconds();
 
           minutes = checkTime(minutes);
           seconds = checkTime(seconds);
@@ -32,22 +30,23 @@
             if (i < 10) {i = "0" + i};
             return i
           };
-
-          var time = hours + ":" + minutes + ":" + seconds
-          return time
+          var timeString = hours + ":" + minutes + ":" + seconds;
+          this.setState({time: timeString});
+          console.log(timeString);
+          console.log(this.props);
         },
 
         render: function () {
           return (
             <div className="time">
-              {this.updateTime()}
+              {this.state.time}
             </div>
           );
         }
       });
 
       React.render(
-        <Clock/>,
+        <Clock date={new Date()} time={""}/>,
         document.getElementById('content')
       );
     </script>

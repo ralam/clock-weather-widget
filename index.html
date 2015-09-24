@@ -23,7 +23,7 @@
         },
 
         componentWillUpdate: function(nextProps) {
-          if (this.state.loc.length > 1) {
+          if (this.state.loc == "") {
             this.getWeather(this.state.loc);
           }
         },
@@ -91,7 +91,7 @@
       });
 
       React.render(
-        <Clock loc={""} time={""}/>,
+        <Clock loc={""} time={""} currentTemp={""} lowTemp={""} highTemp={""} />,
         document.getElementById('content')
       );
     </script>

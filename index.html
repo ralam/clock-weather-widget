@@ -45,11 +45,14 @@
             if (xmlhttp.status >= 200 && xmlhttp.status < 400) {
               // Success!
               var resp = JSON.parse(xmlhttp.responseText);
-              console.log(resp.main);
+              this.setState({currentTemp: "Current Temperature: " + resp.main.temp})
+              this.setState({lowTemp: "Today's low: " + resp.main.temp_min})
+              this.setState({highTemp: "Today's high: " + resp.main.temp_max})
+              this.setState({desc: "Description: " + resp.weather.description})
             } else {
               console.log("error");
             }
-          };
+          }.bind(this);
 
           xmlhttp.onerror = function() {
             console.log("connection error");
@@ -85,13 +88,22 @@
               <div className="location">
                 {this.state.loc}
               </div>
+              <div className="temp">
+                {this.state.currentTemp}
+              </div>
+              <div className="temp">
+                {this.state.lowTemp}
+              </div>
+              <div className="temp">
+                {this.state.highTemp}
+              </div>
             </div>
           );
         }
       });
 
       React.render(
-        <Clock loc={""} time={""} currentTemp={""} lowTemp={""} highTemp={""} />,
+        <Clock loc={""} time={""} currentTemp={""} lowTemp={""} highTemp={""},
         document.getElementById('content')
       );
     </script>

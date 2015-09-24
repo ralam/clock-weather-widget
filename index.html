@@ -22,14 +22,25 @@
           setInterval(this.updateTime, 500);
         },
 
+        componentWillUpdate: function(nextProps) {
+          if (this.state.loc.length > 1) {
+            console.log("got location");
+            this.getWeather(this.state.loc);
+          }
+        },
+
         getLocation: function () {
           var location = ""
           navigator.geolocation.getCurrentPosition(function(position) {
-            console.log(position.coor);
             location = position.coords.latitude + " " + position.coords.longitude
             this.setState({loc: location})
-            console.log(this.state);
           }.bind(this));
+        },
+
+        getWeather: function(coords) {
+          var coord_arr = coords.split(" ");
+          var uri = "http://api.openweathermap.org/data/2.5/weather?lat=" + coord_arr[0] + "&lon=" + coord_arr[1];
+          var xmlhttp = new XMLHttpRequest();
 
         },
 
@@ -52,8 +63,13 @@
 
         render: function () {
           return (
-            <div className="time">
-              {this.state.time}
+            <div className="container">
+              <div className="time">
+                {this.state.time}
+              </div>
+              <div className="location">
+                {this.state.loc}
+              </div>
             </div>
           );
         }

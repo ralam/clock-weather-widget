@@ -38,14 +38,14 @@
 
         getWeather: function(coords) {
           var coord_arr = coords.split(" ");
-          var uri = "http://api.openweathermap.org/data/2.5/weather?lat=" + coord_arr[0] + "&lon=" + coord_arr[1];
+          var uri = "http://api.openweathermap.org/data/2.5/weather?lat=" + coord_arr[0] + "&lon=" + coord_arr[1] + "&units=imperial";
           var xmlhttp = new XMLHttpRequest();
           xmlhttp.open('GET', uri, true);
           xmlhttp.onload = function() {
             if (xmlhttp.status >= 200 && xmlhttp.status < 400) {
               // Success!
-              var resp = xmlhttp.responseText;
-              console.log(resp);
+              var resp = JSON.parse(xmlhttp.responseText);
+              console.log(resp.main);
             } else {
               console.log("error");
             }

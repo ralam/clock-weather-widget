@@ -25,13 +25,19 @@
         componentDidMount: function() {
           this.getLocation();
           setInterval(this.updateTime, 500);
+          setInterval(this.allowUpdate, 1000);
         },
 
         componentDidUpdate: function(prevProps, prevState) {
           if (this.state.loc.length > 1 && this.state.locSet == false) {
             this.getWeather(this.state.loc);
+            console.log("getting weather");
             this.setState({locSet: true});
           }
+        },
+
+        allowUpdate: function () {
+          this.setState({locSet: false});
         },
 
         getLocation: function () {

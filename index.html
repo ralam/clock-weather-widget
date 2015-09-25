@@ -13,7 +13,12 @@
           return {
             time: "",
             loc: "",
-            locSet: false
+            locSet: false,
+            currentTemp: "",
+            lowTemp: "",
+            highTemp: "",
+            desc: "",
+            locName: ""
           };
         },
 
@@ -22,7 +27,7 @@
           setInterval(this.updateTime, 500);
         },
 
-        componentWillUpdate: function(nextProps) {
+        componentDidUpdate: function(prevProps, prevState) {
           if (this.state.loc.length > 1 && this.state.locSet == false) {
             this.getWeather(this.state.loc);
             this.setState({locSet: true});
@@ -113,7 +118,7 @@
       });
 
       React.render(
-        <Clock loc={""} time={""} currentTemp={""} lowTemp={""} highTemp={""} desc={""} locName={""}/>,
+        <Clock/>,
         document.getElementById('content')
       );
     </script>
